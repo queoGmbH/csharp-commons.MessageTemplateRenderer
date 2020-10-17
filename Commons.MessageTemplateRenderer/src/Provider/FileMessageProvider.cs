@@ -5,6 +5,7 @@ using System.Threading;
 
 using Microsoft.Extensions.Logging;
 
+using Queo.Commons.Checks;
 using Queo.Commons.MessageTemplateRenderer.Context;
 using Queo.Commons.MessageTemplateRenderer.Shared;
 
@@ -13,6 +14,10 @@ namespace Queo.Commons.MessageTemplateRenderer.Provider {
         private readonly ILogger _log;
 
         public FileMessageProvider(IRenderContext renderContext, string resourceRelativePath, ILogger<FileMessageProvider> logger) {
+            Require.NotNull(renderContext, nameof(renderContext));
+            Require.NotNullOrEmpty(resourceRelativePath, nameof(resourceRelativePath));
+            Require.NotNull(logger, nameof(logger));
+
             RenderContext = renderContext;
             ResourceRelativePath = resourceRelativePath;
 
@@ -30,6 +35,9 @@ namespace Queo.Commons.MessageTemplateRenderer.Provider {
         /// <param name="model">Daten für das Template</param>
         /// <returns></returns>
         public string RenderMessage(string templateName, ModelMap model) {
+            Require.NotNullOrEmpty(templateName, nameof(templateName));
+            Require.NotNull(model, nameof(model));
+
             _log.LogDebug($"Render message für das Template {templateName}.");
             CultureInfo cultureInfo = Thread.CurrentThread.CurrentCulture;
             string template = LoadMailMessageTemplate(templateName, cultureInfo);

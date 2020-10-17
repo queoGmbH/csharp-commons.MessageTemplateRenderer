@@ -4,6 +4,7 @@ using System.Reflection;
 
 using DotLiquid;
 
+using Queo.Commons.Checks;
 using Queo.Commons.MessageTemplateRenderer.Shared;
 
 namespace Queo.Commons.MessageTemplateRenderer.Templates {
@@ -17,6 +18,7 @@ namespace Queo.Commons.MessageTemplateRenderer.Templates {
         private readonly Template _internalTemplate;
 
         public DotLiquidTemplate(Template internalTemplate) {
+            Require.NotNull(internalTemplate, nameof(internalTemplate));
             _internalTemplate = internalTemplate;
         }
 
@@ -26,6 +28,8 @@ namespace Queo.Commons.MessageTemplateRenderer.Templates {
         /// <param name="modelMap">Die Daten die im Template verwendet werden. Siehe: <see cref="ModelMap" /></param>
         /// <returns>Den gerenderten Text</returns>
         public string Render(ModelMap modelMap) {
+            Require.NotNull(modelMap, nameof(modelMap));
+
             RegisterTypes(modelMap);
             string render = _internalTemplate.Render(Hash.FromDictionary(modelMap));
             return render;

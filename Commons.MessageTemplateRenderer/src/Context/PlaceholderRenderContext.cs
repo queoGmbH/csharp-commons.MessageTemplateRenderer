@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 
 using Microsoft.Extensions.Logging;
 
+using Queo.Commons.Checks;
 using Queo.Commons.MessageTemplateRenderer.Shared;
 using Queo.Commons.MessageTemplateRenderer.Templates;
 
@@ -22,7 +23,8 @@ namespace Queo.Commons.MessageTemplateRenderer.Context {
         ///     Zeichenfolgen zu formatieren.
         /// </summary>
         public PlaceholderRenderContext(ILogger<PlaceholderRenderContext> logger) {
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            Require.NotNull(logger, nameof(logger));
+            _logger = logger;
             Culture = CultureInfo.CurrentCulture;
         }
 
@@ -36,6 +38,7 @@ namespace Queo.Commons.MessageTemplateRenderer.Context {
         /// <param name="logger"></param>
         public PlaceholderRenderContext(string defaultValue, ILogger<PlaceholderRenderContext> logger)
             : this(logger) {
+            Require.NotNullOrEmpty(defaultValue, nameof(defaultValue));
             DefaultValue = defaultValue;
         }
 
@@ -52,7 +55,9 @@ namespace Queo.Commons.MessageTemplateRenderer.Context {
         ///     wird.
         /// </param>
         public PlaceholderRenderContext(CultureInfo culture, ILogger<PlaceholderRenderContext> logger, string defaultValue = null) {
-            Culture = culture ?? throw new ArgumentNullException("culture");
+            Require.NotNull(culture, nameof(culture));
+            Require.NotNull(logger, nameof(logger));
+            Culture = culture;
             _logger = logger;
             DefaultValue = defaultValue;
         }
@@ -85,9 +90,8 @@ namespace Queo.Commons.MessageTemplateRenderer.Context {
         /// <param name="modelMap">Die Daten zum Rendern</param>
         /// <returns>Die gerenderte Vorlage</returns>
         public string ParseAndRender(string template, ModelMap modelMap) {
-            if (modelMap == null) {
-                throw new ArgumentNullException("modelMap");
-            }
+            Require.NotNull(modelMap, nameof(modelMap));
+            Require.NotNullOrEmpty(template, nameof(template));
 
             StringBuilder regexStringBuilder = new StringBuilder();
 
@@ -175,6 +179,9 @@ namespace Queo.Commons.MessageTemplateRenderer.Context {
         ///     Initialisiert eine neue Instanz der <see cref="T:System.Object" />-Klasse.
         /// </summary>
         public PlaceholderModel(string placeholder, ModelMap modelMap) {
+            Require.NotNullOrEmpty(placeholder, nameof(placeholder));
+            Require.NotNull(modelMap, nameof(modelMap));
+
             _placeholderName = GetPlaceholderName(placeholder);
             _placeholderPath = GetPlaceholderPath(placeholder);
             object placeholderObject = GetPlaceholderValue(modelMap, PlaceholderName);
