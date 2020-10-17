@@ -4,9 +4,9 @@ using System.Reflection;
 
 using DotLiquid;
 
-using Queo.Commons.MessageTemplateRenderer.src.Shared;
+using Queo.Commons.MessageTemplateRenderer.Shared;
 
-namespace Queo.Commons.MessageTemplateRenderer.src.Templates {
+namespace Queo.Commons.MessageTemplateRenderer.Templates {
     /// <summary>
     ///     Kaspelt das Template für den DotLiquidRenderContext.
     /// </summary>

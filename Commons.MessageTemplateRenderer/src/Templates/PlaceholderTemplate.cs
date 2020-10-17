@@ -1,7 +1,7 @@
-﻿using Queo.Commons.MessageTemplateRenderer.src.Context;
-using Queo.Commons.MessageTemplateRenderer.src.Shared;
+﻿using Queo.Commons.MessageTemplateRenderer.Context;
+using Queo.Commons.MessageTemplateRenderer.Shared;
 
-namespace Queo.Commons.MessageTemplateRenderer.src.Templates {
+namespace Queo.Commons.MessageTemplateRenderer.Templates {
     /// <summary>
     ///     Implementierung des <see cref="ITemplate" /> für den <see cref="PlaceholderRenderContext" />.
     /// </summary>

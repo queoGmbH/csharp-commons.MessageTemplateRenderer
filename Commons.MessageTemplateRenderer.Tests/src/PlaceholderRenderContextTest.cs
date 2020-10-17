@@ -6,11 +6,11 @@ using Microsoft.Extensions.Logging.Abstractions;
 
 using NUnit.Framework;
 
-using Queo.Commons.MessageTemplateRenderer.src.Context;
-using Queo.Commons.MessageTemplateRenderer.src.Shared;
-using Queo.Commons.MessageTemplateRenderer.src.Templates;
+using Queo.Commons.MessageTemplateRenderer.Context;
+using Queo.Commons.MessageTemplateRenderer.Shared;
+using Queo.Commons.MessageTemplateRenderer.Templates;
 
-namespace Queo.Commons.MessageTemplateRenderer.Tests.src {
+namespace Queo.Commons.MessageTemplateRenderer.Tests {
     [TestFixture]
     public class PlaceholderRenderContextTest {
         [SetUp]

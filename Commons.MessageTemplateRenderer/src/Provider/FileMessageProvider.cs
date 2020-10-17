@@ -5,10 +5,10 @@ using System.Threading;
 
 using Microsoft.Extensions.Logging;
 
-using Queo.Commons.MessageTemplateRenderer.src.Context;
-using Queo.Commons.MessageTemplateRenderer.src.Shared;
+using Queo.Commons.MessageTemplateRenderer.Context;
+using Queo.Commons.MessageTemplateRenderer.Shared;
 
-namespace Queo.Commons.MessageTemplateRenderer.src.Provider {
+namespace Queo.Commons.MessageTemplateRenderer.Provider {
     public class FileMessageProvider : IMessageProvider {
         private readonly ILogger _log;
 

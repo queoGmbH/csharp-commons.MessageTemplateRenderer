@@ -6,11 +6,11 @@ using Microsoft.Extensions.Logging.Abstractions;
 
 using NUnit.Framework;
 
-using Queo.Commons.MessageTemplateRenderer.src.Context;
-using Queo.Commons.MessageTemplateRenderer.src.Provider;
-using Queo.Commons.MessageTemplateRenderer.src.Shared;
+using Queo.Commons.MessageTemplateRenderer.Context;
+using Queo.Commons.MessageTemplateRenderer.Provider;
+using Queo.Commons.MessageTemplateRenderer.Shared;
 
-namespace Queo.Commons.MessageTemplateRenderer.Tests.src {
+namespace Queo.Commons.MessageTemplateRenderer.Tests {
     public class FileMessageProviderTest {
         private FileMessageProvider _mailMessageProvider;
 

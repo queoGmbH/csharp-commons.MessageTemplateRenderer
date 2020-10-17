@@ -1,7 +1,7 @@
-﻿using Queo.Commons.MessageTemplateRenderer.src.Shared;
-using Queo.Commons.MessageTemplateRenderer.src.Templates;
+﻿using Queo.Commons.MessageTemplateRenderer.Shared;
+using Queo.Commons.MessageTemplateRenderer.Templates;
 
-namespace Queo.Commons.MessageTemplateRenderer.src.Context {
+namespace Queo.Commons.MessageTemplateRenderer.Context {
     /// <summary>
     ///     Schnittstelle für einen RenderContext.
     /// </summary>
