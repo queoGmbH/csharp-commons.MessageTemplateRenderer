@@ -38,7 +38,6 @@ namespace Queo.Commons.MessageTemplateRenderer.Context {
         /// <param name="logger"></param>
         public PlaceholderRenderContext(string defaultValue, ILogger<PlaceholderRenderContext> logger)
             : this(logger) {
-            Require.NotNullOrEmpty(defaultValue, nameof(defaultValue));
             DefaultValue = defaultValue;
         }
 
