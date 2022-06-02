@@ -25,6 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Commons.MessageTemplateRenderer\Commons.MessageTemplateRenderer.csproj" />
     <ProjectReference Include="..\Commons.MessageTemplateRenderer\Commons.MessageTemplateRenderer.csproj" />
   </ItemGroup>
 
