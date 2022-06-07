@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -7,13 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DotLiquid" Version="2.0.366" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.9" />
-    <PackageReference Include="Queo.Commons.Checks" Version="3.0.0-beta-20220114.8" />
+    <Compile Remove="src\**" />
+    <EmbeddedResource Remove="src\**" />
+    <None Remove="src\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="src\" />
+    <PackageReference Include="DotLiquid" Version="2.0.366" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.9" />
+    <PackageReference Include="Queo.Commons.Checks" Version="3.0.0-beta-20220114.8" />
   </ItemGroup>
 
 </Project>
