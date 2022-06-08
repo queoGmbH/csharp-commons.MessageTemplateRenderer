@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Globalization;
 using System.IO;
 using System.Threading;
@@ -9,11 +9,14 @@ using Queo.Commons.Checks;
 using Queo.Commons.MessageTemplateRenderer.Context;
 using Queo.Commons.MessageTemplateRenderer.Shared;
 
-namespace Queo.Commons.MessageTemplateRenderer.Provider {
-    public class FileMessageProvider : IMessageProvider {
+namespace Queo.Commons.MessageTemplateRenderer.Provider
+{
+    public class FileMessageProvider : IMessageProvider
+    {
         private readonly ILogger _log;
 
-        public FileMessageProvider(IRenderContext renderContext, string resourceRelativePath, ILogger<FileMessageProvider> logger) {
+        public FileMessageProvider(IRenderContext renderContext, string resourceRelativePath, ILogger<FileMessageProvider> logger)
+        {
             Require.NotNull(renderContext, nameof(renderContext));
             Require.NotNullOrEmpty(resourceRelativePath, nameof(resourceRelativePath));
             Require.NotNull(logger, nameof(logger));
@@ -34,7 +37,8 @@ namespace Queo.Commons.MessageTemplateRenderer.Provider {
         /// <param name="templateName">Name des Templates</param>
         /// <param name="model">Daten für das Template</param>
         /// <returns></returns>
-        public string RenderMessage(string templateName, ModelMap model) {
+        public string RenderMessage(string templateName, ModelMap model)
+        {
             Require.NotNullOrEmpty(templateName, nameof(templateName));
             Require.NotNull(model, nameof(model));
 
@@ -46,7 +50,8 @@ namespace Queo.Commons.MessageTemplateRenderer.Provider {
             return evaluatedTemplate;
         }
 
-        private FileStream FindResource(string templateName, CultureInfo cultureInfo) {
+        private FileStream FindResource(string templateName, CultureInfo cultureInfo)
+        {
             string cultureName = cultureInfo.Name;
             string cultureInfix = string.IsNullOrEmpty(cultureName) ? "" : $".{cultureName}";
 
@@ -59,10 +64,14 @@ namespace Queo.Commons.MessageTemplateRenderer.Provider {
             FileStream resource;
             _log.LogDebug($"Versuche die Resource {resourcePath} zu laden.");
 
-            if (File.Exists(resourcePath)) {
+            if (File.Exists(resourcePath))
+            {
                 resource = new FileStream(resourcePath, FileMode.Open, FileAccess.Read);
-            } else {
-                if (string.IsNullOrEmpty(cultureInfo.Name)) {
+            }
+            else
+            {
+                if (string.IsNullOrEmpty(cultureInfo.Name))
+                {
                     _log.LogError($"Die Ressource {resourceName} wurde unter {resourcePath} nicht gefunden.");
                     throw new FileNotFoundException($"Die Ressource {resourceName} wurde unter {resourcePath} nicht gefunden.");
                 }
@@ -73,10 +82,12 @@ namespace Queo.Commons.MessageTemplateRenderer.Provider {
             return resource;
         }
 
-        private string LoadMailMessageTemplate(string templateName, CultureInfo cultureInfo) {
+        private string LoadMailMessageTemplate(string templateName, CultureInfo cultureInfo)
+        {
             FileStream resource = FindResource(templateName, cultureInfo);
             string template;
-            using (StreamReader reader = new StreamReader(resource)) {
+            using (StreamReader reader = new StreamReader(resource))
+            {
                 template = reader.ReadToEnd();
             }
 

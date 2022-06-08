@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Globalization;
 
 using Microsoft.Extensions.Logging;
@@ -10,11 +10,14 @@ using Queo.Commons.MessageTemplateRenderer.Context;
 using Queo.Commons.MessageTemplateRenderer.Shared;
 using Queo.Commons.MessageTemplateRenderer.Templates;
 
-namespace Queo.Commons.MessageTemplateRenderer.Tests {
+namespace Queo.Commons.MessageTemplateRenderer.Tests
+{
     [TestFixture]
-    public class PlaceholderRenderContextTest {
+    public class PlaceholderRenderContextTest
+    {
         [SetUp]
-        public void Setup() {
+        public void Setup()
+        {
             _logger = new NullLogger<PlaceholderRenderContext>();
         }
 
@@ -25,7 +28,8 @@ namespace Queo.Commons.MessageTemplateRenderer.Tests {
         ///     Child-Property ... zugreift.
         /// </summary>
         [Test]
-        public void TestDeepPathTemplate() {
+        public void TestDeepPathTemplate()
+        {
             /* Given: Ein Template mit einem 3-teiligen Plathalter-Pfad */
             const string TEMPLATE = "Das ist ein {user.name.firstname} Template";
             const string PLACE_HOLDER_VALUE = "Tobias";
@@ -48,7 +52,8 @@ namespace Queo.Commons.MessageTemplateRenderer.Tests {
         ///     Testet das formatierte Ersetzen eines Platzhalters
         /// </summary>
         [Test]
-        public void TestFormat() {
+        public void TestFormat()
+        {
             /* Given: Ein Template, in welches ein Datum eingefügt werden soll. */
             const string TEMPLATE = "Heute ist der {today:d}";
             DateTime now = DateTime.Now;
@@ -66,7 +71,8 @@ namespace Queo.Commons.MessageTemplateRenderer.Tests {
         ///     Testet das kulturabhängige formatierte Ersetzen eines Platzhalters.
         /// </summary>
         [Test]
-        public void TestFormatCulture() {
+        public void TestFormatCulture()
+        {
             /* Given: Eine Zeichenfolge, in welches ein Datum im englischen Format eingefügt werden soll. */
             const string TEMPLATE = "Heute ist der {today:d}";
             DateTime now = DateTime.Now;
@@ -86,7 +92,8 @@ namespace Queo.Commons.MessageTemplateRenderer.Tests {
         ///     String dafür eingesetzt werden soll.
         /// </summary>
         [Test]
-        public void TestFormatPathNotFoundDefaultCustomString() {
+        public void TestFormatPathNotFoundDefaultCustomString()
+        {
             /* Given: Ein Template mit zwei Platzhaltern, von denen im Model nur ein Pfad gefunden werden kann. */
             const string TEMPLATE = "Heute ist der {today:d}. Weltuntergang ist am {doomsday:d}";
             DateTime now = DateTime.Now;
@@ -105,7 +112,8 @@ namespace Queo.Commons.MessageTemplateRenderer.Tests {
         ///     Testet das formatieren des Templates, wenn der Pfad im Model nicht gefunden wird.
         /// </summary>
         [Test]
-        public void TestFormatPathNotFoundDefaultNull() {
+        public void TestFormatPathNotFoundDefaultNull()
+        {
             /* Given: Ein Template mit zwei Platzhaltern, von denen im Model nur ein Pfad gefunden werden kann. */
             const string TEMPLATE = "Heute ist der {today:d}. Weltuntergang ist am {doomsday:d}";
             DateTime now = DateTime.Now;
@@ -123,7 +131,8 @@ namespace Queo.Commons.MessageTemplateRenderer.Tests {
         ///     Testet das formatieren des Templates, wenn der Pfad im Model nicht gefunden wird.
         /// </summary>
         [Test]
-        public void TestFormatPathNotFoundDefaultStringEmpty() {
+        public void TestFormatPathNotFoundDefaultStringEmpty()
+        {
             /* Given: Ein Template mit zwei Platzhaltern, von denen im Model nur ein Pfad gefunden werden kann. */
             const string TEMPLATE = "Heute ist der {today:d}. Weltuntergang ist am {doomsday:d}";
             DateTime now = DateTime.Now;
@@ -142,7 +151,8 @@ namespace Queo.Commons.MessageTemplateRenderer.Tests {
         ///     Testet das Ersetzen in einem Template, bei dem mehrere Platzhalter auf verschiedene ebenen des Models zugreifen.
         /// </summary>
         [Test]
-        public void TestMultiplePlaceholdersOfDifferentDepth() {
+        public void TestMultiplePlaceholdersOfDifferentDepth()
+        {
             /* Given: Ein Template mit einem 3-teiligen Plathalter-Pfad */
             const string TEMPLATE =
                 "Mein Name ist {user.name.firstname} {user.name.lastname}. Ich habe im Jahr {application.year} eine tolle Software namens {application.name} entwickelt.";
@@ -160,11 +170,13 @@ namespace Queo.Commons.MessageTemplateRenderer.Tests {
             expectedString = expectedString.Replace("{application.name}", APPLICATION_NAME_VALUE);
 
             /* When: Das Template gefüllt werden soll */
-            var name = new {
+            var name = new
+            {
                 firstname = FIRST_NAME_VALUE,
                 lastname = LAST_NAME_VALUE
             };
-            var user = new {
+            var user = new
+            {
                 // ReSharper disable once RedundantAnonymousTypePropertyName : Readability
                 name = name
             };
@@ -184,7 +196,8 @@ namespace Queo.Commons.MessageTemplateRenderer.Tests {
         ///     Testet das Ersetzen eines simplen Templates
         /// </summary>
         [Test]
-        public void TestRenderTemplate() {
+        public void TestRenderTemplate()
+        {
             /* Given: Ein einfacher String mit einem Platzhalter */
             const string TEMPLATE = "Das ist ein {value} Template";
             const string PLACE_HOLDER_VALUE = "einfaches";
@@ -204,7 +217,8 @@ namespace Queo.Commons.MessageTemplateRenderer.Tests {
         ///     Testet das ersetzen eines mehrfach vorkommenden Platzhalters.
         /// </summary>
         [Test]
-        public void TestReplaceTwice() {
+        public void TestReplaceTwice()
+        {
             /* Given: Ein Template in dem ein Platzhalter mehrfach vorkommt. */
             const string TEMPLATE = "{hello}, {hello}, {hello}. Wie gehts?";
             const string HELLO_VALUE = "Hi";
@@ -223,7 +237,8 @@ namespace Queo.Commons.MessageTemplateRenderer.Tests {
         ///     Testet das Ersetzen eines simplen Templates
         /// </summary>
         [Test]
-        public void TestSimpleTemplate() {
+        public void TestSimpleTemplate()
+        {
             /* Given: Ein einfacher String mit einem Platzhalter */
             const string TEMPLATE = "Das ist ein {value} Template";
             const string PLACE_HOLDER_VALUE = "einfaches";
@@ -241,7 +256,8 @@ namespace Queo.Commons.MessageTemplateRenderer.Tests {
         ///     Testet das Ersetzen eines simplen Templates
         /// </summary>
         [Test]
-        public void TestSimpleTemplateWithModelMap() {
+        public void TestSimpleTemplateWithModelMap()
+        {
             /* Given: Ein einfacher String mit einem Platzhalter */
             const string TEMPLATE = "Das ist ein {value} Template";
             const string PLACE_HOLDER_VALUE = "einfaches";
