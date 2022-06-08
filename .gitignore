@@ -340,3 +340,6 @@ ASALocalRun/
 healthchecksdb
 /.dotnet
 /tools
+/.artifacts.tests
+/.artifacts
+/tests/Commons.MessageTemplateRenderer.Tests/coverage.cobertura.xml
