@@ -1,7 +1,9 @@
-﻿using Queo.Commons.MessageTemplateRenderer.Shared;
+using Queo.Commons.MessageTemplateRenderer.Shared;
 
-namespace Queo.Commons.MessageTemplateRenderer.Provider {
-    public interface IMessageProvider {
+namespace Queo.Commons.MessageTemplateRenderer.Provider
+{
+    public interface IMessageProvider
+    {
         /// <summary>
         ///     Rendert eine Mailmessage aus dem angegebenen Template und verwendet dabei die Daten aus dem Model.
         /// </summary>

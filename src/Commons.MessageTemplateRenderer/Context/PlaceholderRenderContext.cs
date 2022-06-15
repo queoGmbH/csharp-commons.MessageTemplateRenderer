@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -10,8 +10,10 @@ using Queo.Commons.Checks;
 using Queo.Commons.MessageTemplateRenderer.Shared;
 using Queo.Commons.MessageTemplateRenderer.Templates;
 
-namespace Queo.Commons.MessageTemplateRenderer.Context {
-    public class PlaceholderRenderContext : IRenderContext {
+namespace Queo.Commons.MessageTemplateRenderer.Context
+{
+    public class PlaceholderRenderContext : IRenderContext
+    {
         private const string PLACEHOLDER_CLOSING = "}";
         private const string PLACEHOLDER_FORMAT_SEPARATOR = ":";
 
@@ -22,7 +24,8 @@ namespace Queo.Commons.MessageTemplateRenderer.Context {
         ///     Erzeugt einen neuen Templater, der die <see cref="CultureInfo.CurrentCulture">CurrentCulture</see> verwendet, um
         ///     Zeichenfolgen zu formatieren.
         /// </summary>
-        public PlaceholderRenderContext(ILogger<PlaceholderRenderContext> logger) {
+        public PlaceholderRenderContext(ILogger<PlaceholderRenderContext> logger)
+        {
             Require.NotNull(logger, nameof(logger));
             _logger = logger;
             Culture = CultureInfo.CurrentCulture;
@@ -37,7 +40,8 @@ namespace Queo.Commons.MessageTemplateRenderer.Context {
         /// </param>
         /// <param name="logger"></param>
         public PlaceholderRenderContext(string defaultValue, ILogger<PlaceholderRenderContext> logger)
-            : this(logger) {
+            : this(logger)
+        {
             DefaultValue = defaultValue;
         }
 
@@ -53,7 +57,8 @@ namespace Queo.Commons.MessageTemplateRenderer.Context {
         ///     Der Wert durch den Platzhalter ersetzt werden sollen, deren Pfad im Model nicht gefunden
         ///     wird.
         /// </param>
-        public PlaceholderRenderContext(CultureInfo culture, ILogger<PlaceholderRenderContext> logger, string defaultValue = null) {
+        public PlaceholderRenderContext(CultureInfo culture, ILogger<PlaceholderRenderContext> logger, string defaultValue = null)
+        {
             Require.NotNull(culture, nameof(culture));
             Require.NotNull(logger, nameof(logger));
             Culture = culture;
@@ -78,7 +83,8 @@ namespace Queo.Commons.MessageTemplateRenderer.Context {
         /// </summary>
         /// <param name="template"></param>
         /// <returns>Ein vorbereitetes Template, das gerendert werden kann.</returns>
-        public ITemplate Parse(string template) {
+        public ITemplate Parse(string template)
+        {
             return new PlaceholderTemplate(template, this);
         }
 
@@ -88,7 +94,8 @@ namespace Queo.Commons.MessageTemplateRenderer.Context {
         /// <param name="template">Die Vorlage</param>
         /// <param name="modelMap">Die Daten zum Rendern</param>
         /// <returns>Die gerenderte Vorlage</returns>
-        public string ParseAndRender(string template, ModelMap modelMap) {
+        public string ParseAndRender(string template, ModelMap modelMap)
+        {
             Require.NotNull(modelMap, nameof(modelMap));
             Require.NotNullOrEmpty(template, nameof(template));
 
@@ -109,20 +116,24 @@ namespace Queo.Commons.MessageTemplateRenderer.Context {
             /*Platzhalter endet mit ...*/
             regexStringBuilder.Append("\\" + PLACEHOLDER_CLOSING);
 
-            if (_logger.IsEnabled(LogLevel.Debug)) {
+            if (_logger.IsEnabled(LogLevel.Debug))
+            {
                 _logger.LogDebug(
                     $"In der Zeichenfolge [{template}] sollen alle Teilzeichenfolgen, die den RegEx [{regexStringBuilder}] erfüllen, ersetzt werden.");
             }
 
             /*Wie soll ersetzt werden.*/
-            MatchEvaluator matchEvaluator = delegate(Match match) {
-                try {
+            MatchEvaluator matchEvaluator = delegate (Match match)
+            {
+                try
+                {
                     /*Pfad von Platzhalter-Öffner und -Schließer befreien.*/
                     string placeholder = match.Value.Replace(PLACEHOLDER_OPENING, "").Replace(PLACEHOLDER_CLOSING, "");
                     string[] strings = placeholder.Split(new[] { PLACEHOLDER_FORMAT_SEPARATOR }, 2, StringSplitOptions.None);
                     string format = "";
 
-                    if (strings.Length >= 2) {
+                    if (strings.Length >= 2)
+                    {
                         /*Wenn ein Format definiert ist, nutze dieses.*/
                         format = strings[1];
                     }
@@ -130,7 +141,8 @@ namespace Queo.Commons.MessageTemplateRenderer.Context {
                     /*Platzhalter auslesen*/
                     string placeholderPath = strings[0];
 
-                    if (_logger.IsEnabled(LogLevel.Debug)) {
+                    if (_logger.IsEnabled(LogLevel.Debug))
+                    {
                         _logger.LogDebug($"Der Platzhalter {placeholderPath} soll im Format {format} ersetzt werden.");
                     }
 
@@ -139,8 +151,10 @@ namespace Queo.Commons.MessageTemplateRenderer.Context {
                     object valueByPath = placeholderModel.Value;
 
                     /*Wert zu string formatierenm, wenn nicht null */
-                    if (valueByPath != null) {
-                        if (!string.IsNullOrEmpty(format)) {
+                    if (valueByPath != null)
+                    {
+                        if (!string.IsNullOrEmpty(format))
+                        {
                             /*Wert formatieren, wenn Format definiert ist*/
                             // ReSharper disable FormatStringProblem
                             return string.Format(Culture, "{0:" + format + "}", valueByPath);
@@ -149,14 +163,18 @@ namespace Queo.Commons.MessageTemplateRenderer.Context {
 
                         return valueByPath.ToString();
                     }
-                } catch (Exception ex) {
-                    if (_logger.IsEnabled(LogLevel.Debug)) {
+                }
+                catch (Exception ex)
+                {
+                    if (_logger.IsEnabled(LogLevel.Debug))
+                    {
                         _logger.LogDebug($"Der Platzhalter {match.Value} konnte nicht ersetzt werden und wird durch den Default-Value ersetzt. {ex}");
                     }
                 }
 
                 /*Wenn das ersetzen nicht funktiont, wird der Platzhalter so gelassen wie er ist (DefaultValue == null) oder der DefaultValue eingefügt (DefaultValue != null).*/
-                if (DefaultValue == null) {
+                if (DefaultValue == null)
+                {
                     return match.Value;
                 }
 
@@ -169,7 +187,8 @@ namespace Queo.Commons.MessageTemplateRenderer.Context {
     }
 
     // ToDo: In eigene Datei legen.
-    internal class PlaceholderModel {
+    internal class PlaceholderModel
+    {
         private readonly string _placeholderName;
         private readonly string _placeholderPath;
         private readonly object _value;
@@ -177,7 +196,8 @@ namespace Queo.Commons.MessageTemplateRenderer.Context {
         /// <summary>
         ///     Initialisiert eine neue Instanz der <see cref="T:System.Object" />-Klasse.
         /// </summary>
-        public PlaceholderModel(string placeholder, ModelMap modelMap) {
+        public PlaceholderModel(string placeholder, ModelMap modelMap)
+        {
             Require.NotNullOrEmpty(placeholder, nameof(placeholder));
             Require.NotNull(modelMap, nameof(modelMap));
 
@@ -190,57 +210,69 @@ namespace Queo.Commons.MessageTemplateRenderer.Context {
         /// <summary>
         ///     Namensteil des Platzhalters.
         /// </summary>
-        public string PlaceholderName {
+        public string PlaceholderName
+        {
             get { return _placeholderName; }
         }
 
         /// <summary>
         ///     Pfadanteil des Platzhalters.
         /// </summary>
-        public string PlaceholderPath {
+        public string PlaceholderPath
+        {
             get { return _placeholderPath; }
         }
 
         /// <summary>
         ///     Liefert den durch den Pfad definierten Wert.
         /// </summary>
-        public object Value {
+        public object Value
+        {
             get { return _value; }
         }
 
-        private string GetPlaceholderName(string placeholder) {
+        private string GetPlaceholderName(string placeholder)
+        {
             int indexOf = placeholder.IndexOf(".", StringComparison.Ordinal);
-            if (indexOf <= 0) {
+            if (indexOf <= 0)
+            {
                 return placeholder;
             }
 
             return placeholder.Substring(0, indexOf);
         }
 
-        private string GetPlaceholderPath(string placeholder) {
+        private string GetPlaceholderPath(string placeholder)
+        {
             int indexOf = placeholder.IndexOf(".", StringComparison.Ordinal);
-            if (indexOf <= 0) {
+            if (indexOf <= 0)
+            {
                 return "";
             }
 
             return placeholder.Substring(indexOf + 1);
         }
 
-        private object GetPlaceholderValue(ModelMap modelMap, string placeholderName) {
-            if (modelMap.ContainsKey(placeholderName)) {
+        private object GetPlaceholderValue(ModelMap modelMap, string placeholderName)
+        {
+            if (modelMap.ContainsKey(placeholderName))
+            {
                 return modelMap[PlaceholderName];
             }
 
             return null;
         }
 
-        private object GetValueFromModelByPath(string placeholderPath, object model) {
+        private object GetValueFromModelByPath(string placeholderPath, object model)
+        {
             /*Wenn Model null, dann null liefern.*/
-            if (model == null) {
+            if (model == null)
+            {
                 return null;
             }
 
-            if (string.IsNullOrEmpty(placeholderPath)) {
+            if (string.IsNullOrEmpty(placeholderPath))
+            {
                 return model;
             }
 
@@ -249,7 +281,8 @@ namespace Queo.Commons.MessageTemplateRenderer.Context {
 
             object value = model.GetType().GetProperty(pathParts[0]).GetValue(model, null);
 
-            if (pathParts.Length > 1) {
+            if (pathParts.Length > 1)
+            {
                 /*Der Pfad hat noch mehr als 1 Stufe => im Model weiter abwärts gehen.*/
                 return GetValueFromModelByPath(string.Join(".", pathParts.Skip(1)), value);
             }

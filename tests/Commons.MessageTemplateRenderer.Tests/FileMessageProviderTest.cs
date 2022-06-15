@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+using System.Globalization;
 using System.IO;
 using System.Threading;
 
@@ -10,12 +10,15 @@ using Queo.Commons.MessageTemplateRenderer.Context;
 using Queo.Commons.MessageTemplateRenderer.Provider;
 using Queo.Commons.MessageTemplateRenderer.Shared;
 
-namespace Queo.Commons.MessageTemplateRenderer.Tests {
-    public class FileMessageProviderTest {
+namespace Queo.Commons.MessageTemplateRenderer.Tests
+{
+    public class FileMessageProviderTest
+    {
         private FileMessageProvider _mailMessageProvider;
 
         [SetUp]
-        public void Setup() {
+        public void Setup()
+        {
             Thread.CurrentThread.CurrentCulture = new CultureInfo("de-DE");
             IRenderContext renderContext = new DotLiquidRenderContext();
             string resourceRelativePath = Path.Combine("Resources", "MailTemplates");
@@ -23,7 +26,8 @@ namespace Queo.Commons.MessageTemplateRenderer.Tests {
         }
 
         [Test]
-        public void TestLoadResource() {
+        public void TestLoadResource()
+        {
             string renderedMessage = _mailMessageProvider.RenderMessage("Test", new ModelMap());
 
             Assert.IsNotNull(renderedMessage);
@@ -31,7 +35,8 @@ namespace Queo.Commons.MessageTemplateRenderer.Tests {
         }
 
         [Test]
-        public void TestRenderMessageWithoutCulture() {
+        public void TestRenderMessageWithoutCulture()
+        {
             string renderedMessage = _mailMessageProvider.RenderMessage("TestWithoutCulture", new ModelMap());
 
             Assert.IsNotNull(renderedMessage);
@@ -39,7 +44,8 @@ namespace Queo.Commons.MessageTemplateRenderer.Tests {
         }
 
         [Test]
-        public void TestRenderNotExistingResource() {
+        public void TestRenderNotExistingResource()
+        {
             Assert.Throws<FileNotFoundException>(() => _mailMessageProvider.RenderMessage("TestNotExistingResource", new ModelMap()));
         }
     }

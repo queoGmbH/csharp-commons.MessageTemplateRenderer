@@ -1,11 +1,13 @@
-﻿using Queo.Commons.MessageTemplateRenderer.Shared;
+using Queo.Commons.MessageTemplateRenderer.Shared;
 using Queo.Commons.MessageTemplateRenderer.Templates;
 
-namespace Queo.Commons.MessageTemplateRenderer.Context {
+namespace Queo.Commons.MessageTemplateRenderer.Context
+{
     /// <summary>
     ///     Schnittstelle für einen RenderContext.
     /// </summary>
-    public interface IRenderContext {
+    public interface IRenderContext
+    {
         /// <summary>
         ///     Bereitet eine Vorlage für das Rendering vor. <see cref="ITemplate.Render" />
         /// </summary>

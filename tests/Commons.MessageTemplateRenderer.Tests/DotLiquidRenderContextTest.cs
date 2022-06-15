@@ -6,15 +6,19 @@ using Queo.Commons.MessageTemplateRenderer.Context;
 using Queo.Commons.MessageTemplateRenderer.Shared;
 using Queo.Commons.MessageTemplateRenderer.Templates;
 
-namespace Queo.Commons.MessageTemplateRenderer.Tests {
+namespace Queo.Commons.MessageTemplateRenderer.Tests
+{
     [TestFixture]
-    public class DotLiquidRenderContextTest {
+    public class DotLiquidRenderContextTest
+    {
         [SetUp]
-        public void Setup() {
+        public void Setup()
+        {
         }
 
         [Test]
-        public void TestParseAndRender() {
+        public void TestParseAndRender()
+        {
             /* Given: Ein einfacher String mit einem Platzhalter */
             const string TEMPLATE = "Das ist ein {{ value }} Template";
             const string PLACE_HOLDER_VALUE = "einfaches";
@@ -23,7 +27,7 @@ namespace Queo.Commons.MessageTemplateRenderer.Tests {
             ModelMap model = new ModelMap();
             model.Add("value", PLACE_HOLDER_VALUE);
 
-            /* When: Das Template mit dem Platzhaklter gefüllt werden soll */
+            /* When: Das Template mit dem Platzhaklter gefÃ¼llt werden soll */
             string result = new DotLiquidRenderContext().ParseAndRender(TEMPLATE, model);
 
             /* Then: Muss der Platzhalter korrekt ersetzt werden. */
@@ -31,7 +35,8 @@ namespace Queo.Commons.MessageTemplateRenderer.Tests {
         }
 
         [Test]
-        public void TestParseAndRenderTemplate() {
+        public void TestParseAndRenderTemplate()
+        {
             /* Given: Ein einfacher String mit einem Platzhalter */
             const string TEMPLATE = "Das ist ein {{ foo.Description }} Template";
             const string PLACE_HOLDER_VALUE = "einfaches";
@@ -42,7 +47,7 @@ namespace Queo.Commons.MessageTemplateRenderer.Tests {
 
             model.Add("foo", foo);
 
-            /* When: Das Template mit dem Platzhalter gefüllt werden soll */
+            /* When: Das Template mit dem Platzhalter gefÃ¼llt werden soll */
             ITemplate template = new DotLiquidRenderContext().Parse(TEMPLATE);
             string result = template.Render(model);
 
@@ -51,7 +56,8 @@ namespace Queo.Commons.MessageTemplateRenderer.Tests {
         }
 
         [Test]
-        public void TestParseAndRenderTemplatePascalcasePropertyDoNotWork() {
+        public void TestParseAndRenderTemplatePascalcasePropertyDoNotWork()
+        {
             /* Given: Ein einfacher String mit einem Platzhalter */
             const string TEMPLATE = "Das ist ein {{ foo.Description }} {{ foo.PascalCaseProperty }} Template";
             const string PLACE_HOLDER_VALUE = "einfaches";
@@ -64,7 +70,7 @@ namespace Queo.Commons.MessageTemplateRenderer.Tests {
 
             model.Add("foo", foo);
 
-            /* When: Das Template mit dem Platzhalter gefüllt werden soll */
+            /* When: Das Template mit dem Platzhalter gefÃ¼llt werden soll */
             ITemplate template = new DotLiquidRenderContext().Parse(TEMPLATE);
             string result = template.Render(model);
 
@@ -73,12 +79,15 @@ namespace Queo.Commons.MessageTemplateRenderer.Tests {
         }
     }
 
-    public class ParseTestObject {
-        public ParseTestObject(string placeHolderValue) {
+    public class ParseTestObject
+    {
+        public ParseTestObject(string placeHolderValue)
+        {
             Description = placeHolderValue;
         }
 
-        public ParseTestObject(string placeHolderValue, string pascalCaseProperty) {
+        public ParseTestObject(string placeHolderValue, string pascalCaseProperty)
+        {
             Description = placeHolderValue;
             PascalCaseProperty = pascalCaseProperty;
         }
