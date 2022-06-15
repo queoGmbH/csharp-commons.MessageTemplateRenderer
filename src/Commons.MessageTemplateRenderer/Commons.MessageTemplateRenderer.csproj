@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>Queo.Commons.MessageTemplateRenderer</AssemblyName>
+    <RootNamespace>Queo.Commons.MessageTemplateRenderer</RootNamespace>
+    <VersionPrefix>3.0.0</VersionPrefix>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="src\**" />
+    <EmbeddedResource Remove="src\**" />
+    <None Remove="src\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DotLiquid" Version="2.2.656" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0-preview.4.22229.4" />
+    <PackageReference Include="Queo.Commons.Checks" Version="3.0.0-beta-20220114.8" />
+  </ItemGroup>
+
+</Project>
