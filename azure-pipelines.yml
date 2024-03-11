@@ -85,7 +85,7 @@ stages:
       inputs:
         filePath: 'build.ps1'
         args: '--target=BuildPackage'
- - job: BuildNuGetPackageForDeploy
+  - job: BuildNuGetPackageForDeploy
     dependsOn:
     - buildAndTest_windows
     - buildAndTest_linux
