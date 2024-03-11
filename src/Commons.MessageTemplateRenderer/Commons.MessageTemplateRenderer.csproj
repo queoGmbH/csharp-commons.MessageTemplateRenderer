@@ -14,9 +14,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DotLiquid" Version="2.2.656" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0-preview.4.22229.4" />
-    <PackageReference Include="Queo.Commons.Checks" Version="3.0.0-beta-20220114.8" />
+    <PackageReference Include="DotLiquid" Version="2.2.692" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.0" />
+    <PackageReference Include="Queo.Commons.Checks" Version="3.0.0" />
   </ItemGroup>
 
 </Project>
