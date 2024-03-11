@@ -37,6 +37,7 @@ stages:
       inputs:
         filePath: 'build.ps1'
         args: '--target=BuildAndTest'
+
     - task: PublishCodeCoverageResults@1
       inputs:
         codeCoverageTool: Cobertura
@@ -84,3 +85,86 @@ stages:
       inputs:
         filePath: 'build.ps1'
         args: '--target=BuildPackage'
+ - job: BuildNuGetPackageForDeploy
+    dependsOn:
+    - buildAndTest_windows
+    - buildAndTest_linux
+    pool:
+      vmImage: 'windows-latest'
+
+    steps:
+        # .NET Core 6.0 SDK installieren
+    - task: UseDotNet@2
+      displayName: 'Use .NET Core sdk'
+      inputs:
+        packageType: sdk
+        version: 6.0.100
+
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'custom'
+        custom: 'tool'
+        arguments: 'install -g dotnet-format --ignore-failed-sources'
+    
+    - task: PowerShell@2
+      inputs:
+        filePath: 'build.ps1'
+        arguments: '--target=BuildPackage'
+
+    - publish: '$(System.DefaultWorkingDirectory)/.artifacts'
+      artifact: NuGetPackage
+
+- stage: Publish
+  displayName: 'Publish to nuget.org'
+  condition: and(succeeded(), in(variables['build.sourceBranch'], 'refs/heads/main', 'refs/heads/develop'), ne(variables['Build.Reason'], 'Schedule'))
+
+  jobs:
+  - job: publish
+    steps:
+    - checkout: 'none'
+
+    - download: current
+      artifact: NuGetPackage
+
+    - task: NuGetAuthenticate@1
+      inputs:
+        nuGetServiceConnection: 'queoNuGetOrg'
+
+    - task: NuGetCommand@2
+      inputs:
+        command: push
+        nuGetFeedType: 'external'
+        publishFeedCredentials: 'queoNuGetOrg'
+        packagesToPush: $(Pipeline.Workspace)/**/*.nupkg
+
+  - deployment: DeployToBeta
+    displayName: Deploy to beta
+    dependsOn: publish
+    condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/develop'))
+    pool: 
+      vmImage: 'ubuntu-latest'
+    # Creates an environment if it doesn't exist. Seems not to work. the environment must exist.
+    environment: MessageTemplateRenderer-BetaChannel
+    strategy:
+      # Default deployment strategy, more coming...
+      runOnce:
+        deploy:
+          steps:
+          - checkout: self 
+          - script: echo deployment to beta
+  
+  - deployment: DeployToProd
+    displayName: Deploy to prod
+    dependsOn: publish
+    condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/main'))
+    pool: 
+      vmImage: 'ubuntu-latest'
+    # Creates an environment if it doesn't exist.
+    environment: MessageTemplateRenderer-ReleaseChannel
+    strategy:
+      # Default deployment strategy, more coming...
+      runOnce:
+        deploy:
+          steps:
+          - checkout: self 
+          - script: echo deployment to release
