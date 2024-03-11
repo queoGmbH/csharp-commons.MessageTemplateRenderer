@@ -75,24 +75,6 @@ stages:
       vmImage: 'windows-latest'
 
     steps:
-    - task: DotNetCoreCLI@2
-      inputs:
-        command: 'custom'
-        custom: 'tool'
-        arguments: 'install -g dotnet-format --ignore-failed-sources'
-    
-    - task: PowerShell@2
-      inputs:
-        filePath: 'build.ps1'
-        args: '--target=BuildPackage'
-  - job: BuildNuGetPackageForDeploy
-    dependsOn:
-    - buildAndTest_windows
-    - buildAndTest_linux
-    pool:
-      vmImage: 'windows-latest'
-
-    steps:
         # .NET Core 6.0 SDK installieren
     - task: UseDotNet@2
       displayName: 'Use .NET Core sdk'
