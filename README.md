@@ -15,7 +15,6 @@ Queo.Commons.MessageTemplateRenderer makes it possible to personalize texts auto
 ## How to use it
 - include Nuget-Package (queo.commons.messageTemplateRenderer)
 
-```powershell
-Find-Package queo.commons.MessageTemplateRenderer
-Install-Package queo.commons.MessageTemplateRenderer -ProjectName MyProject
+```csharp
+<PackageReference Include="Queo.Commons.MessageTemplateRenderer" Version="3.0.0" />
 ```
