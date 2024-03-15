@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>Queo.Commons.MessageTemplateRenderer</AssemblyName>
     <RootNamespace>Queo.Commons.MessageTemplateRenderer</RootNamespace>
-    <VersionPrefix>3.0.0</VersionPrefix>
+    <VersionPrefix>3.0.1</VersionPrefix>
     <Authors>queo/software/csharp</Authors>
     <Company>queo GmbH</Company>
     <Copyright>2024 queo GmbH</Copyright>
