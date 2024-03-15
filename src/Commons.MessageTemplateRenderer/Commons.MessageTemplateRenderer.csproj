@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>Queo.Commons.MessageTemplateRenderer</AssemblyName>
+    <RootNamespace>Queo.Commons.MessageTemplateRenderer</RootNamespace>
+    <VersionPrefix>3.0.1</VersionPrefix>
+    <Authors>queo/software/csharp</Authors>
+    <Company>queo GmbH</Company>
+    <Copyright>2024 queo GmbH</Copyright>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Description>Queo.Commons.MessageTemplateRenderer makes it possible to personalize texts automatically.</Description>
+    <PackageId>Queo.Commons.MessageTemplateRenderer</PackageId>
+    <PackageLicenseUrl>https://licenses.nuget.org/MIT</PackageLicenseUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/queoGmbH/csharp-commons.MessageTemplateRenderer</RepositoryUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="src\**" />
+    <EmbeddedResource Remove="src\**" />
+    <None Remove="src\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DotLiquid" Version="2.2.692" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.0" />
+    <PackageReference Include="Queo.Commons.Checks" Version="3.0.1" />
+  </ItemGroup>
+
+</Project>
