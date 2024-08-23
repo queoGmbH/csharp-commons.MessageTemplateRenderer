@@ -1,6 +1,7 @@
 using System.Text.RegularExpressions;
 
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 using Queo.Commons.MessageTemplateRenderer.Context;
 using Queo.Commons.MessageTemplateRenderer.Shared;
@@ -31,7 +32,7 @@ namespace Queo.Commons.MessageTemplateRenderer.Tests
             string result = new DotLiquidRenderContext().ParseAndRender(TEMPLATE, model);
 
             /* Then: Muss der Platzhalter korrekt ersetzt werden. */
-            Assert.AreEqual(expectedString, result);
+            ClassicAssert.AreEqual(expectedString, result);
         }
 
         [Test]
@@ -52,7 +53,7 @@ namespace Queo.Commons.MessageTemplateRenderer.Tests
             string result = template.Render(model);
 
             /* Then: Muss der Platzhalter korrekt ersetzt werden. */
-            Assert.AreEqual(expectedString, result);
+            ClassicAssert.AreEqual(expectedString, result);
         }
 
         [Test]
@@ -75,7 +76,7 @@ namespace Queo.Commons.MessageTemplateRenderer.Tests
             string result = template.Render(model);
 
             /* Then: Muss der Platzhalter korrekt ersetzt werden. */
-            Assert.IsTrue(Regex.IsMatch(result, ".*Missing property.*"));
+            Assert.That(Regex.IsMatch(result, ".*Missing property.*"));
         }
     }
 
