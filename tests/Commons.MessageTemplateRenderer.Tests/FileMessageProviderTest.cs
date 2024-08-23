@@ -5,6 +5,7 @@ using System.Threading;
 using Microsoft.Extensions.Logging.Abstractions;
 
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 using Queo.Commons.MessageTemplateRenderer.Context;
 using Queo.Commons.MessageTemplateRenderer.Provider;
@@ -30,7 +31,7 @@ namespace Queo.Commons.MessageTemplateRenderer.Tests
         {
             string renderedMessage = _mailMessageProvider.RenderMessage("Test", new ModelMap());
 
-            Assert.IsNotNull(renderedMessage);
+            ClassicAssert.IsNotNull(renderedMessage);
             StringAssert.StartsWith("Subject: Testbetreff", renderedMessage);
         }
 
@@ -39,7 +40,7 @@ namespace Queo.Commons.MessageTemplateRenderer.Tests
         {
             string renderedMessage = _mailMessageProvider.RenderMessage("TestWithoutCulture", new ModelMap());
 
-            Assert.IsNotNull(renderedMessage);
+            ClassicAssert.IsNotNull(renderedMessage);
             StringAssert.StartsWith("Subject: TestWithoutCulture", renderedMessage);
         }
 
