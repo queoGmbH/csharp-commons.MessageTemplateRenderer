@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>Queo.Commons.MessageTemplateRenderer</AssemblyName>
     <RootNamespace>Queo.Commons.MessageTemplateRenderer</RootNamespace>
-    <VersionPrefix>3.0.1</VersionPrefix>
+    <VersionPrefix>3.1.0</VersionPrefix>
     <Authors>queo/software/csharp</Authors>
     <Company>queo GmbH</Company>
     <Copyright>2024 queo GmbH</Copyright>
@@ -23,8 +23,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DotLiquid" Version="2.2.692" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.0" />
+    <PackageReference Include="DotLiquid" Version="2.3.18" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.2" />
     <PackageReference Include="Queo.Commons.Checks" Version="3.0.1" />
   </ItemGroup>
 

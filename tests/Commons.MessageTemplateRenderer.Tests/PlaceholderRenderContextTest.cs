@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 using Queo.Commons.MessageTemplateRenderer.Context;
 using Queo.Commons.MessageTemplateRenderer.Shared;
@@ -45,7 +46,7 @@ namespace Queo.Commons.MessageTemplateRenderer.Tests
             string result = new PlaceholderRenderContext(_logger).ParseAndRender(TEMPLATE, model);
 
             /* Then: Müssen die Platzhalter korrekt ersetzt werden. */
-            Assert.AreEqual(expectedString, result);
+            ClassicAssert.AreEqual(expectedString, result);
         }
 
         /// <summary>
@@ -64,7 +65,7 @@ namespace Queo.Commons.MessageTemplateRenderer.Tests
             string result = new PlaceholderRenderContext(_logger).ParseAndRender(TEMPLATE, model);
 
             /* Then: Muss das korrekte Datum im richtigen Format eingefügt wurden sein. */
-            Assert.AreEqual(expected, result);
+            ClassicAssert.AreEqual(expected, result);
         }
 
         /// <summary>
@@ -84,7 +85,7 @@ namespace Queo.Commons.MessageTemplateRenderer.Tests
             string result = new PlaceholderRenderContext(englishCulture, _logger).ParseAndRender(TEMPLATE, model);
 
             /* Then: Muss das Datum korrekt im englischen Datumsformat eingefügt sein. */
-            Assert.AreEqual(expected, result);
+            ClassicAssert.AreEqual(expected, result);
         }
 
         /// <summary>
@@ -105,7 +106,7 @@ namespace Queo.Commons.MessageTemplateRenderer.Tests
             string result = new PlaceholderRenderContext(DEFAULT_VALUE, _logger).ParseAndRender(TEMPLATE, model);
 
             /* Then: Muss das gefundene mit dem Datum und das andere mit dem Wert in DEFAULT_VALUE ersetzt werden . */
-            Assert.AreEqual(expected, result);
+            ClassicAssert.AreEqual(expected, result);
         }
 
         /// <summary>
@@ -124,7 +125,7 @@ namespace Queo.Commons.MessageTemplateRenderer.Tests
             string result = new PlaceholderRenderContext(_logger).ParseAndRender(TEMPLATE, model);
 
             /* Then: Muss das gefundene ersetzt werden und das andere so belassen werden. */
-            Assert.AreEqual(expected, result);
+            ClassicAssert.AreEqual(expected, result);
         }
 
         /// <summary>
@@ -144,7 +145,7 @@ namespace Queo.Commons.MessageTemplateRenderer.Tests
             string result = new PlaceholderRenderContext(defaultValue, _logger).ParseAndRender(TEMPLATE, model);
 
             /* Then: Muss das gefundene mit dem Datum und das andere mit string.Empty ersetzt werden . */
-            Assert.AreEqual(expected, result);
+            ClassicAssert.AreEqual(expected, result);
         }
 
         /// <summary>
@@ -189,7 +190,7 @@ namespace Queo.Commons.MessageTemplateRenderer.Tests
             string result = new PlaceholderRenderContext(_logger).ParseAndRender(TEMPLATE, model);
 
             /* Then: Müssen die Platzhalter korrekt ersetzt werden. */
-            Assert.AreEqual(expectedString, result);
+            ClassicAssert.AreEqual(expectedString, result);
         }
 
         /// <summary>
@@ -210,7 +211,7 @@ namespace Queo.Commons.MessageTemplateRenderer.Tests
             string result = parsedTemplate.Render(model);
 
             /* Then: Muss der Platzhalter korrekt ersetzt werden. */
-            Assert.AreEqual(expectedString, result);
+            ClassicAssert.AreEqual(expectedString, result);
         }
 
         /// <summary>
@@ -230,7 +231,7 @@ namespace Queo.Commons.MessageTemplateRenderer.Tests
             string result = new PlaceholderRenderContext(_logger).ParseAndRender(TEMPLATE, model);
 
             /* Then: Müssen alle Platzhalter ersetzt werden. */
-            Assert.AreEqual(expected, result);
+            ClassicAssert.AreEqual(expected, result);
         }
 
         /// <summary>
@@ -249,7 +250,7 @@ namespace Queo.Commons.MessageTemplateRenderer.Tests
             string result = new PlaceholderRenderContext(_logger).ParseAndRender(TEMPLATE, model);
 
             /* Then: Muss der Platzhalter korrekt ersetzt werden. */
-            Assert.AreEqual(expectedString, result);
+            ClassicAssert.AreEqual(expectedString, result);
         }
 
         /// <summary>
@@ -269,7 +270,7 @@ namespace Queo.Commons.MessageTemplateRenderer.Tests
             string result = new PlaceholderRenderContext(_logger).ParseAndRender(TEMPLATE, model);
 
             /* Then: Muss der Platzhalter korrekt ersetzt werden. */
-            Assert.AreEqual(expectedString, result);
+            ClassicAssert.AreEqual(expectedString, result);
         }
     }
 }
