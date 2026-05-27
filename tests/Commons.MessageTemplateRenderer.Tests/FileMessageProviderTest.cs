@@ -1,3 +1,4 @@
+using System;
 using System.Globalization;
 using System.IO;
 using System.Threading;
@@ -48,7 +49,9 @@ namespace Queo.Commons.MessageTemplateRenderer.Tests
         [Test]
         public void TestRenderNotExistingResource()
         {
-            Assert.Throws<FileNotFoundException>(() => _mailMessageProvider.RenderMessage("TestNotExistingResource", new ModelMap()));
+            Action act = () => _mailMessageProvider.RenderMessage("TestNotExistingResource", new ModelMap());
+
+            Assert.Throws<FileNotFoundException>(act);
         }
 
         [Test]
