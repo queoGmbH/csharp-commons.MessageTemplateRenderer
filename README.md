@@ -18,3 +18,33 @@ Queo.Commons.MessageTemplateRenderer makes it possible to personalize texts auto
 ```csharp
 <PackageReference Include="Queo.Commons.MessageTemplateRenderer" Version="3.0.0" />
 ```
+
+## Dependency Injection
+
+The library now supports options-based configuration for `FileMessageProvider`.
+The existing constructor with `resourceRelativePath` is still available for backward compatibility.
+
+```csharp
+using System.IO;
+
+using Microsoft.Extensions.DependencyInjection;
+
+using Queo.Commons.MessageTemplateRenderer.Context;
+using Queo.Commons.MessageTemplateRenderer.Provider;
+
+public static class MessageTemplateRendererRegistration
+{
+	public static IServiceCollection AddMessageTemplateRenderer(this IServiceCollection services)
+	{
+		services.Configure<FileMessageProviderOptions>(options =>
+		{
+			options.ResourceRelativePath = Path.Combine("Resources", "MailTemplates");
+		});
+
+		services.AddTransient<IRenderContext, DotLiquidRenderContext>();
+		services.AddTransient<IMessageProvider, FileMessageProvider>();
+
+		return services;
+	}
+}
+```
