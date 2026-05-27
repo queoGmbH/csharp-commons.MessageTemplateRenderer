@@ -4,6 +4,7 @@ using System.IO;
 using System.Threading;
 
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 using Queo.Commons.Checks;
 using Queo.Commons.MessageTemplateRenderer.Context;
@@ -27,9 +28,23 @@ namespace Queo.Commons.MessageTemplateRenderer.Provider
             _log = logger;
         }
 
+        public FileMessageProvider(IRenderContext renderContext, IOptions<FileMessageProviderOptions> options, ILogger<FileMessageProvider> logger)
+            : this(renderContext, GetResourceRelativePath(options), logger)
+        {
+        }
+
         public IRenderContext RenderContext { get; set; }
 
         public string ResourceRelativePath { get; set; }
+
+        private static string GetResourceRelativePath(IOptions<FileMessageProviderOptions> options)
+        {
+            Require.NotNull(options, nameof(options));
+            Require.NotNull(options.Value, nameof(options.Value));
+            Require.NotNullOrEmpty(options.Value.ResourceRelativePath, nameof(options.Value.ResourceRelativePath));
+
+            return options.Value.ResourceRelativePath;
+        }
 
         /// <summary>
         ///     Rendert eine Mailmessage aus dem angegebenen Template und verwendet dabei die Daten aus dem Model.

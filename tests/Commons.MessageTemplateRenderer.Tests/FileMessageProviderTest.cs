@@ -3,6 +3,7 @@ using System.IO;
 using System.Threading;
 
 using Microsoft.Extensions.Logging.Abstractions;
+using Microsoft.Extensions.Options;
 
 using NUnit.Framework;
 using NUnit.Framework.Legacy;
@@ -48,6 +49,26 @@ namespace Queo.Commons.MessageTemplateRenderer.Tests
         public void TestRenderNotExistingResource()
         {
             Assert.Throws<FileNotFoundException>(() => _mailMessageProvider.RenderMessage("TestNotExistingResource", new ModelMap()));
+        }
+
+        [Test]
+        public void TestLoadResourceWithOptionsConstructor()
+        {
+            IRenderContext renderContext = new DotLiquidRenderContext();
+            FileMessageProviderOptions providerOptions = new FileMessageProviderOptions
+            {
+                ResourceRelativePath = Path.Combine("Resources", "MailTemplates")
+            };
+
+            IMessageProvider messageProvider = new FileMessageProvider(
+                renderContext,
+                Options.Create(providerOptions),
+                new NullLogger<FileMessageProvider>());
+
+            string renderedMessage = messageProvider.RenderMessage("Test", new ModelMap());
+
+            ClassicAssert.IsNotNull(renderedMessage);
+            StringAssert.StartsWith("Subject: Testbetreff", renderedMessage);
         }
     }
 }
