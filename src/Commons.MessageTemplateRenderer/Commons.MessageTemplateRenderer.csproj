@@ -4,10 +4,10 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>Queo.Commons.MessageTemplateRenderer</AssemblyName>
     <RootNamespace>Queo.Commons.MessageTemplateRenderer</RootNamespace>
-    <VersionPrefix>3.1.1</VersionPrefix>
+    <VersionPrefix>3.2.0</VersionPrefix>
     <Authors>queo/software/csharp</Authors>
     <Company>queo GmbH</Company>
-    <Copyright>2024 queo GmbH</Copyright>
+    <Copyright>2026 queo GmbH</Copyright>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Description>Queo.Commons.MessageTemplateRenderer makes it possible to personalize texts automatically.</Description>
     <PackageId>Queo.Commons.MessageTemplateRenderer</PackageId>
