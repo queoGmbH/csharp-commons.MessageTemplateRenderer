@@ -1,8 +1,10 @@
+using System;
 using System.Globalization;
 using System.IO;
 using System.Threading;
 
 using Microsoft.Extensions.Logging.Abstractions;
+using Microsoft.Extensions.Options;
 
 using NUnit.Framework;
 using NUnit.Framework.Legacy;
@@ -47,7 +49,29 @@ namespace Queo.Commons.MessageTemplateRenderer.Tests
         [Test]
         public void TestRenderNotExistingResource()
         {
-            Assert.Throws<FileNotFoundException>(() => _mailMessageProvider.RenderMessage("TestNotExistingResource", new ModelMap()));
+            Action act = () => _mailMessageProvider.RenderMessage("TestNotExistingResource", new ModelMap());
+
+            Assert.Throws<FileNotFoundException>(act);
+        }
+
+        [Test]
+        public void TestLoadResourceWithOptionsConstructor()
+        {
+            IRenderContext renderContext = new DotLiquidRenderContext();
+            FileMessageProviderOptions providerOptions = new FileMessageProviderOptions
+            {
+                ResourceRelativePath = Path.Combine("Resources", "MailTemplates")
+            };
+
+            IMessageProvider messageProvider = new FileMessageProvider(
+                renderContext,
+                Options.Create(providerOptions),
+                new NullLogger<FileMessageProvider>());
+
+            string renderedMessage = messageProvider.RenderMessage("Test", new ModelMap());
+
+            ClassicAssert.IsNotNull(renderedMessage);
+            StringAssert.StartsWith("Subject: Testbetreff", renderedMessage);
         }
     }
 }
